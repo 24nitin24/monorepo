@@ -13,11 +13,11 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...          
       - docker build -t test .
-      - docker tag test:latest 279722474072.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/test:V.${CODEBUILD_BUILD_ID##*:}
+      - docker tag test:latest 775664058672.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/test:V.${CODEBUILD_BUILD_ID##*:}
 
 
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 279722474072.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/test:V.${CODEBUILD_BUILD_ID##*:}
+      - docker push 775664058672.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/test:V.${CODEBUILD_BUILD_ID##*:}

@@ -1,0 +1,23 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+      - cd serviceA/
+ 
+ 
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...          
+      - docker build -t test .
+      - docker tag test:latest 279722474072.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/test:V.${CODEBUILD_BUILD_ID##*:}
+
+
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push 279722474072.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/test:V.${CODEBUILD_BUILD_ID##*:}
